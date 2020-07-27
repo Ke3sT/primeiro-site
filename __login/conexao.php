@@ -5,6 +5,7 @@ $estaConectado = false;
 
 //Crio uma instancia
 $conexaoMySQL = new mysqli("localhost", "u121704082_keest", "Xablau666");
+//$conexaoMySQL = new mysqli("localhost", "root", "");
 
 //Verifico se conseguiu se conectar ao host.
 if (!$conexaoMySQL->connect_errno) {
@@ -12,6 +13,7 @@ if (!$conexaoMySQL->connect_errno) {
 
     //Verifico a conexao com um banco de dados e se a database e tabela necessarias existem.
     if (!$conexaoMySQL->select_db("u121704082_painel")) {
+        //if (!$conexaoMySQL->select_db("painel")) {
 
         //$query = "CREATE DATABASE painel;";
         //$conexaoMySQL->query($query); aaa

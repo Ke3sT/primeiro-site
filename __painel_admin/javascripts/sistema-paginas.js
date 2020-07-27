@@ -1,30 +1,32 @@
 var paginasLicenca;
 $(function() {
-
-
     //Sistema de pagina
     let solicitacaoLicencas = $.ajax({
         url: 'scripts/retornar-licencas.php'
     });
 
     solicitacaoLicencas.done(function(resposta, codigoResp, xhttp) {
+        let divLicencas = $(".licencasDados");
         if (resposta.length == 0) {
             console.log("Erro conexão MySQL");
-            let divLicencas = $(".licencasDados");
+
             divLicencas.append("<p class='semConexao'>Nao há nenhuma conexao com o banco de dados</p>");
         } else {
             console.log("Conexao MySQL ok");
+
             let dadosLicencas = JSON.parse(resposta);
 
-            paginasLicenca = new Pagina(10, dadosLicencas);
-            paginasLicenca.criarPaginas();
-            carregarPaginas();
-            criarBotoes();
-            mostrarPagina(1);
-            carregaCopiarChave();
+            //Verifico se retornou algum dado
+            if (dadosLicencas.length > 0) {
+                paginasLicenca = new Pagina(10, dadosLicencas);
+                paginasLicenca.criarPaginas();
+                carregarPaginas();
 
-            //Carrego as funcao do botao de excluir
-            jQuery.getScript('javascripts/excluir-licenca.js');
+                carregaOutrasFuncoes();
+            } else {
+                //Caso nao tenha nenhuma licenca, boto uma mensagem padrao
+                divLicencas.append("<p class='semDados'>Não há nenhuma licenca atualmente no banco de dados</p>");
+            }
         }
     });
 
@@ -34,6 +36,20 @@ $(function() {
         divLicencas.append("<p class='semConexao'>Nao há nenhuma conexao com o banco de dados</p>");
     });
 });
+
+//Funcao carregar as funcoes basicas apos receber a data do ajax
+function carregaOutrasFuncoes() {
+    //Funcao pra criar os botoes de pagina
+    criarBotoes();
+    //Funcao pra mostrar a pagina 1
+    mostrarPagina(1);
+    //Funcao pra copiar chave
+    carregaCopiarChave();
+    //Funcao pra fazer o botao de verinfo
+    verInfo();
+    //Carrego as funcao do botao de excluir
+    jQuery.getScript('javascripts/excluir-licenca.js');
+}
 
 function mostrarPagina(qualPagina) {
     let divLicencas = $(".licencasDados");
@@ -57,19 +73,30 @@ function carregarPaginas() {
         listaColunas += "<div id='" + pagina + "' style='display:none'>"
         Object.keys(elementosPagina).forEach(index => {
             let dataLicenca = elementosPagina[index];
-            listaColunas += "<ul>";
-            listaColunas += "<li id='" + dataLicenca['id'] + "' class='chave' title='Clique para copiar'>" + dataLicenca['chave'] + "</li>";
-            listaColunas += "<li class='maxIps'>" + dataLicenca['maximoIPs'] + "</li>";
-            listaColunas += "<li class='qualquerIp'>" + (dataLicenca['permitirQualquerIp'] == 1 ? "Sim" : "Nao") + "</li>";
+
+            //Crio o "cabecalho" de cada licenca, com as informacoes basicas e os botoes pra controlar
+            listaColunas += "<div id='" + dataLicenca['id'] + "' class='chaveDados'>"
+            listaColunas += "<a class='licencaTitulo' title='Clique para copiar a chave'> " + dataLicenca['chave'] + " </a>"
             listaColunas += "<button class='configurar' title='Alterar  dados da licenca'>Configurar</button>";
             listaColunas += "<button class='excluir' title='Excluir licenca do banco de dados'>Excluir</button>";
+            listaColunas += "<button class='ver' title='Mostrar todas as infos da licenca'>Ver</button>";
+
+            //Aqui crio a lista contendo todas as informacoes que quero mostrar
+            listaColunas += "<ul style='display:none'>";
+            listaColunas += "<li class='chave' title='Clique para copiar a chave'>Chave da licenca: <a>" + dataLicenca['chave'] + "</a></li>";
+            listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
+            listaColunas += "<li class='qualquerIp'>Qualquer IP?: <a>" + (dataLicenca['permitirQualquerIp'] == 1 ? "Sim" : "Nao") + "</a></li>";
+            listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
             listaColunas += "</ul>";
+
+            listaColunas += "</div>";
         })
         listaColunas += "</div>";
         divLicencas.append(listaColunas);
     }
 }
 
+//Funcao pra criar os botoes da pagina
 function criarBotoes() {
     let divBotoes = $(".botoesNav");
     totalPaginas = paginasLicenca.getTotalPaginas();
@@ -77,7 +104,7 @@ function criarBotoes() {
 
     let botoes = "";
     for (loop = 0; loop < totalPaginas; loop++) {
-        botoes += "<button id='" + (loop + 1) + "'>Pagina " + (loop + 1) + "</button>"
+        botoes += "<button class='botoesNav' id='" + (loop + 1) + "' title='Ir para a pagina " + (loop + 1) + "'>" + (loop + 1) + "</button>"
     }
 
     //Adiciono os botoes
@@ -106,11 +133,61 @@ function criarBotoes() {
     });
 }
 
+
+//Funcao pra copiar a chave
 function carregaCopiarChave() {
     $(function() {
         //Script pra copiar a chave no que o usuario clicou
         $(".chave").click(function() {
+            copiaProClipBoard($(this).children("a").text());
+        });
+
+        $(".licencaTitulo").click(function() {
             copiaProClipBoard($(this).text());
         });
+
+
     })
+}
+
+//Funcao pra mostrar infos da licenca
+function verInfo() {
+    $(".ver").click(function(evento) {
+        var botaoVer = $(this);
+        var chaveClicada = botaoVer.next("ul");
+
+        //Animacoes
+        if (chaveClicada.is(":animated")) {
+            chaveClicada.stop(true, true);
+        }
+
+        if (botaoVer.is(":animated")) {
+            botaoVer.stop(true, true);
+        }
+
+        botaoVer.attr("disabled", true).animate({
+            opacity: 0
+        }, 500);
+
+        console.log(chaveClicada);
+        if (chaveClicada.is(":hidden")) {
+
+            chaveClicada.show(500, function() {
+                botaoVer.text("Ocultar");
+                botaoVer.addClass("ocultar")
+                botaoVer.attr("disabled", false).animate({
+                    opacity: 1
+                }, 500);
+            });
+
+        } else {
+            chaveClicada.hide(500, function() {
+                botaoVer.text("Ver");
+                botaoVer.removeClass("ocultar")
+                botaoVer.attr("disabled", false).animate({
+                    opacity: 1
+                }, 500);
+            });
+        }
+    });
 }

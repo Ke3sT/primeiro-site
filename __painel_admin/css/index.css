@@ -24,3 +24,9 @@ p {
     background-color: rgba(214, 26, 26, 0.747);
     color: white;
 }
+
+.semDados {
+    padding: 5px;
+    background-color: rgb(250, 91, 62);
+    color: white;
+}

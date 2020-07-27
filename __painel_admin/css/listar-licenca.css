@@ -6,9 +6,8 @@
 /*CSS da caixa inteira do licencas */
 
 .caixaLicencas {
-    color: blue;
     border: 3px solid rgba(37, 114, 214, 0.671);
-    background-color: rgb(235, 240, 245);
+    background-color: rgba(234, 245, 235, 0.795);
     border-radius: 5px;
     padding: 5px;
 }
@@ -31,7 +30,6 @@
 }
 
 .infoCaixa ul li {
-    margin-right: -0.5%;
     color: white;
     display: inline-block;
     padding: 5px;
@@ -39,77 +37,139 @@
 
 .infoChave {
     width: 30%;
-}
-
-.infoMaxIps {
-    width: 15%;
-}
-
-.infoQualquerIp {
-    width: 23%;
+    text-align: center;
 }
 
 .infoOpcoes {
-    width: 19%;
+    width: 20%;
+    float: right;
     text-align: center;
 }
 
 
 /*CSS das linhas e listas das licencas */
 
-.licencasDados ul {
+
+/*Caixa da licenca. Bloco onde contem os dados de cada licenca separada*/
+
+.licencasDados .chaveDados {
+    border: 1px solid rgba(142, 174, 214, 0.938);
+    border-radius: 7px;
+    padding: 15px;
+    background: #3881e7c4;
+    color: white;
+    overflow: hidden;
+}
+
+
+/*Estilo do elemento a*/
+
+.licencasDados .chaveDados a.licencaTitulo {
+    text-decoration: none;
+    background-color: rgba(44, 117, 226, 0.658);
+    border: 2px solid rgba(14, 128, 173, 0.61);
+    border-radius: 5px;
+    padding: 6px;
+}
+
+.licencasDados .chaveDados a.licencaTitulo:hover {
+    background-color: rgba(146, 204, 230, 0.425);
+    cursor: pointer;
+}
+
+
+/*Estilo das listas da licenca*/
+
+.licencasDados .chaveDados ul {
+    margin-top: 20px;
     list-style: none;
+    width: 90%;
+    overflow: hidden;
+    border-top: 1.4px solid rgba(51, 105, 185, 0.836);
+}
+
+
+/*Estilo das linhas da lista*/
+
+.licencasDados .chaveDados ul li {
+    display: inline-block;
+    margin-right: 15px;
     padding: 5px;
-    margin-bottom: 5px;
-    background-color: rgba(31, 118, 231, 0.315);
+    margin-top: 10px;
+    border-bottom: 1.4px solid rgba(51, 105, 185, 0.836);
+    background-color: #5688cec2;
     border-radius: 5px;
 }
 
-.licencasDados ul li {
-    display: inline-block;
-    padding: 5px;
-    color: rgba(19, 56, 105, 0.993);
-}
-
-.licencasDados ul li.configurar {
-    text-align: center;
-}
-
-.licencasDados ul li.excluir {
-    text-align: center;
-}
-
-.chave {
-    width: 30%;
-}
-
-.chave:hover {
-    border-bottom: 1px solid rgba(31, 118, 231, 0.938);
-    background-color: rgba(20, 96, 194, 0.24);
+.licencasDados .chaveDados ul li:hover {
+    background-color: rgba(20, 95, 194, 0.473);
     cursor: pointer;
     border-radius: 6px;
 }
 
-.maxIps {
-    width: 15%;
+
+/* CSS de cada item da lista */
+
+.chaveDados .chave a:hover {
+    text-decoration: underline;
+    background-color: rgba(19, 118, 247, 0.24);
 }
 
+.chaveDados .chave a {
+    color: white;
+}
+
+.chave {
+    width: 47%;
+}
+
+
+/* ------------- */
+
+.maxIps {
+    width: 20%;
+}
+
+
+/* ------------- */
+
 .qualquerIp {
-    width: 23%;
+    width: 25%;
 }
 
 
 /*CSS dos botoes configurar e excluir */
 
-.licencasDados ul button.excluir,
-ul button.configurar {
+.licencasDados button {
+    float: right;
+}
+
+.licencasDados button.excluir,
+button.configurar,
+button.ver {
     text-decoration: none;
     color: white;
-    border: 0px;
     padding: 5px;
+    margin-left: 10px;
+    border-radius: 4px;
+}
+
+.licencasDados .ver {
+    border-color: rgb(235, 72, 44);
+    background-color: tomato;
+    width: 7%;
+}
+
+.licencasDados .ver:hover {
+    background-color: rgb(247, 60, 27);
+}
+
+.licencasDados .ocultar {
+    width: 11%;
 }
 
 .licencasDados .configurar {
+    border-color: rgba(31, 118, 231, 0.541);
     margin-right: 10px;
     background-color: rgba(31, 118, 231, 0.541);
     width: 11%;
@@ -120,6 +180,7 @@ ul button.configurar {
 }
 
 .licencasDados .excluir {
+    border-color: rgba(226, 40, 40, 0.726);
     background-color: rgba(226, 40, 40, 0.726);
     width: 8%;
     color: white;
@@ -140,6 +201,25 @@ ul button.configurar {
 
 /* CSS dos botoes de pagina */
 
-.botoesNav {}
+.botoesNav {
+    margin: 0px auto 0px;
+    border-top: 2px solid rgba(37, 123, 221, 0.993);
+    margin-top: 7px;
+    width: 80%;
+    background-color: rgba(90, 162, 196, 0.493);
+    padding: 5px;
+}
 
-.botoesNav button {}
+.botoesNav button {
+    width: 3.4%;
+    padding: 2px;
+    border: none;
+    background-color: rgba(50, 144, 233, 0.863);
+    color: white;
+    margin-right: 2px;
+    margin: 0px auto 0px;
+}
+
+.botoesNav button:hover {
+    background-color: rgba(35, 104, 168, 0.863);
+}

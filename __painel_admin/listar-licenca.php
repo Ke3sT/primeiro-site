@@ -31,6 +31,8 @@ if (estaConectado()) {
         $(function() {
             //Mostrar o conteudo
             $("#conteudo").fadeIn(1000);
+
+            //Funcao pra mostrar/ocultar informacoes de uma chave pelo botao Ver
         })
     </script>
 
@@ -51,8 +53,8 @@ if (estaConectado()) {
                 <div class="infoCaixa">
                     <ul>
                         <li class="infoChave" title="Chave da licenca">Chave</li>
-                        <li class="infoMaxIps" title="Maximo de IPs permitidos na chave">Maximo de IPs</li>
-                        <li class="infoQualquerIp" title="Permite ou nao qualquer IP utilizar a chave">Permitir qualquer IP?</li>
+                        <!--<li class="infoMaxIps" title="Maximo de IPs permitidos na chave">Maximo de IPs</li>
+                        <li class="infoQualquerIp" title="Permite ou nao qualquer IP utilizar a chave">Permitir qualquer IP?</li>-->
                         <li class="infoOpcoes" title="Opcoes para excluir/alterar dados da licenca">Opcões</li>
                     </ul>
                 </div>
@@ -78,6 +80,8 @@ if (estaConectado()) {
             document.execCommand('copy');
             document.body.removeChild(licencaChave);
         }
+
+
 
         //Animacao para ocultar a chave
         function animacaoExclusao(elementoChave, sucesso) {

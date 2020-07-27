@@ -5,8 +5,8 @@ $(function() {
         console.log("Clicou em excluir");
 
         var chaveClicada = $(this);
-        var licencaID = chaveClicada.parent().find(".chave").attr("id");
-        var chaveKey = chaveClicada.parent().find(".chave").text();
+        var licencaID = chaveClicada.parent().attr("id");
+        var chaveKey = chaveClicada.parent().find("a:first").text();
         console.log("Tentando excluir ID: " + licencaID);
 
         //Coloca o elemento meio transp.

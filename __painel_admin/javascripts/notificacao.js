@@ -32,6 +32,10 @@ function mostraNotificacao(corNotificacao, titulo, mensagem) {
     tituloNotifi.text(titulo);
     conteudoNotifi.text(mensagem);
 
+    //Verifico se ele esta na animacao
+    if (elementoNotifi.is(":animated")) {
+        elementoNotifi.stop(true, true);
+    }
     //Coloco pra ela sumir depois de 5segundos
     elementoNotifi.fadeIn(1000, function() {
         setTimeout(function() {
