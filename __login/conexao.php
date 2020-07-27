@@ -14,7 +14,7 @@ if (!$conexaoMySQL->connect_errno) {
     if (!$conexaoMySQL->select_db("u121704082_painel")) {
 
         //$query = "CREATE DATABASE painel;";
-        //$conexaoMySQL->query($query);
+        //$conexaoMySQL->query($query); aaa
         if (!$conexaoMySQL->query("SELECT * FROM usuarios")) {
             //echo "</br>Tabela usuarios nao encontrado. Criando...";
             $query = "CREATE TABLE usuarios(id INT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(30) NOT NULL, login VARCHAR(15) NOT NULL, senha VARCHAR(12) NOT NULL, nome VARCHAR(20) NOT NULL);";
