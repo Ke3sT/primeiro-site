@@ -16,7 +16,7 @@ $(function() {
             console.log("Conexao MySQL ok");
             let dadosLicencas = JSON.parse(resposta);
 
-            paginasLicenca = new Pagina(10, dadosLicencas);
+            paginasLicenca = new Pagina(5, dadosLicencas);
             paginasLicenca.criarPaginas();
             carregarPaginas();
             criarBotoes();
