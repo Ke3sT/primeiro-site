@@ -1,0 +1,145 @@
+#menuPainel .botaoListarLicenca {
+    background-color: lime;
+}
+
+
+/*CSS da caixa inteira do licencas */
+
+.caixaLicencas {
+    color: blue;
+    border: 3px solid rgba(37, 114, 214, 0.671);
+    background-color: rgb(235, 240, 245);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+/*CSS do info que fica em cima das licencas */
+
+.infoCaixa {
+    border: 2px solid rgba(31, 118, 231, 0.938);
+    border-radius: 4px;
+    background-color: rgba(62, 136, 233, 0.938);
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.infoCaixa ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.infoCaixa ul li {
+    margin-right: -0.5%;
+    color: white;
+    display: inline-block;
+    padding: 5px;
+}
+
+.infoChave {
+    width: 30%;
+}
+
+.infoMaxIps {
+    width: 15%;
+}
+
+.infoQualquerIp {
+    width: 23%;
+}
+
+.infoOpcoes {
+    width: 19%;
+    text-align: center;
+}
+
+
+/*CSS das linhas e listas das licencas */
+
+.licencasDados ul {
+    list-style: none;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(31, 118, 231, 0.315);
+    border-radius: 5px;
+}
+
+.licencasDados ul li {
+    display: inline-block;
+    padding: 5px;
+    color: rgba(19, 56, 105, 0.993);
+}
+
+.licencasDados ul li.configurar {
+    text-align: center;
+}
+
+.licencasDados ul li.excluir {
+    text-align: center;
+}
+
+.chave {
+    width: 30%;
+}
+
+.chave:hover {
+    border-bottom: 1px solid rgba(31, 118, 231, 0.938);
+    background-color: rgba(20, 96, 194, 0.24);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.maxIps {
+    width: 15%;
+}
+
+.qualquerIp {
+    width: 23%;
+}
+
+
+/*CSS dos botoes configurar e excluir */
+
+.licencasDados ul button.excluir,
+ul button.configurar {
+    text-decoration: none;
+    color: white;
+    border: 0px;
+    padding: 5px;
+}
+
+.licencasDados .configurar {
+    margin-right: 10px;
+    background-color: rgba(31, 118, 231, 0.541);
+    width: 11%;
+}
+
+.licencasDados .configurar:hover {
+    background-color: rgba(31, 118, 231, 0.938);
+}
+
+.licencasDados .excluir {
+    background-color: rgba(226, 40, 40, 0.726);
+    width: 8%;
+    color: white;
+}
+
+.licencasDados .excluir:hover {
+    background-color: rgb(226, 40, 40);
+}
+
+.licencasDados .erro {
+    background-color: rgba(231, 73, 73, 0.699);
+}
+
+.licencasDados .sucesso {
+    background-color: rgba(34, 226, 34, 0.801);
+}
+
+
+/* CSS dos botoes de pagina */
+
+.botoesNav {}
+
+.botoesNav button {}

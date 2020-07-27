@@ -1,0 +1,26 @@
+#conteudo {
+    background-color: rgb(139, 138, 233);
+    width: 79%;
+    padding: 15px;
+    float: left;
+    display: none;
+}
+
+#caixa {
+    padding: 5px;
+    width: 80%;
+    background-color: rgba(42, 45, 228, 0.411);
+    margin: 80px auto 0px;
+    overflow: hidden;
+    border: 2px solid gray;
+}
+
+p {
+    text-align: center;
+}
+
+.semConexao {
+    padding: 5px;
+    background-color: rgba(214, 26, 26, 0.747);
+    color: white;
+}

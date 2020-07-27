@@ -1,0 +1,123 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgba(185, 185, 196, 0.822);
+}
+
+main {
+    width: 1000px;
+    height: 800px;
+    margin: 50px auto 100px;
+    background-color: rgb(80, 126, 196);
+}
+
+h1 {
+    width: 300px;
+    height: 50px;
+    margin: 0px auto;
+}
+
+.menu {
+    margin: 30px auto 0px;
+    padding: 4px;
+    width: 1000px;
+    background-color: rgb(185, 185, 196);
+    overflow: hidden;
+}
+
+.menu .item-menu {
+    background-color: gainsboro;
+    float: left;
+    width: 150px;
+    padding: 10px;
+    text-align: center;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.menu #menuLogin {
+    color: rgb(55, 73, 55);
+    float: right;
+    margin-right: 0;
+    font-weight: bold;
+    width: 113px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+/*Design do botao de logar quando nao tiver logado*/
+
+.menu .botaologin {
+    background-color: rgb(54, 235, 54);
+}
+
+.botaologin#menuLogin:hover {
+    background-color: rgb(86, 204, 86);
+    cursor: pointer;
+}
+
+
+/*Design do botao de logout quando tiver logado*/
+
+.botaologout#menuLogin {
+    background-color: rgb(90, 145, 247);
+    color: white;
+}
+
+.botaologout#menuLogin:hover {
+    background-color: rgb(218, 58, 58);
+    cursor: pointer;
+}
+
+
+/*Design do menu*/
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.menu .item-menu:hover {
+    background-color: buttonface;
+    color: red;
+}
+
+.menu .submenu:hover .submenu-itens {
+    display: block;
+}
+
+.submenu-itens {
+    display: none;
+    margin: 10px auto 0px;
+    width: 1000px;
+    padding: 0px;
+    position: absolute;
+    background-color: red;
+    float: left;
+    left: 259px;
+    text-align: center;
+}
+
+.submenu .submenu-itens a {
+    float: left;
+    color: black;
+    text-decoration: none;
+    width: 150px;
+    padding: 10px;
+}
+
+.submenu .submenu-itens a:hover {
+    background-color: white;
+    text-decoration: underline;
+}
+
+.menu .botaoacessapainel {
+    background-color: rgba(223, 223, 35, 0.801);
+    color: rgb(0, 0, 0);
+}
+
+.menu .botaoacessapainel:hover {
+    background-color: rgb(55, 155, 9);
+    color: black;
+    cursor: pointer;
+}

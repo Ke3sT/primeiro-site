@@ -1,0 +1,36 @@
+#menuPainel {
+    background-color: rgb(109, 141, 177);
+    width: 200px;
+    float: left;
+    border: 1px solid gray;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.menuItem {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(29, 26, 207, 0.247);
+    border-radius: 5px;
+    text-align: center;
+}
+
+#menuPainel a {
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menuItem:hover {
+    background-color: lime;
+    cursor: pointer;
+    color: red;
+}
+
+.menuItem:last-child {
+    margin-bottom: 0px;
+}
+
+h1 {
+    text-align: center;
+}
