@@ -26,7 +26,7 @@ if (isset($_SESSION['estaLogado'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>KeesTDev - ?</title>
+    <title>KeesTDev - Site principal</title>
 
     <link href="__css/index.css" rel="stylesheet">
     <link href="__css/login.css" rel="stylesheet">
