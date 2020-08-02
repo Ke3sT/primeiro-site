@@ -1,10 +1,8 @@
 <?php
-//require './__login/conexao.php';
-include __DIR__ . '/../__login/conexao.php';
+include __DIR__. '/../__painel_admin/scripts/conexao.php';
 
 function getDataDoUsuario($id)
 {
-
     if (estaConectado()) {
         global $conexaoMySQL;
 
@@ -15,11 +13,6 @@ function getDataDoUsuario($id)
     } else {
         return null;
     }
-}
-
-function teste()
-{
-    echo 'Xablau';
 }
 
 function estaLogado()

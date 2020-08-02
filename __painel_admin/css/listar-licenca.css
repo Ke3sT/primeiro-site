@@ -91,7 +91,9 @@
 
 /*Estilo das linhas da lista*/
 
-.licencasDados .chaveDados ul li {
+.licencasDados .chaveDados ul li,
+select,
+select option {
     display: inline-block;
     margin-right: 15px;
     padding: 5px;
@@ -106,6 +108,13 @@
     cursor: pointer;
     border-radius: 6px;
 }
+
+.licencasDados select {
+    color: white;
+    padding: 0px;
+}
+
+.licencasDados select option {}
 
 
 /* CSS de cada item da lista */

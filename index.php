@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-@include '__usuario/usuariodata.php';
-
+include '__usuario/usuariodata.php';
 if (isset($_SESSION['estaLogado'])) {
     //Tem secao!
 

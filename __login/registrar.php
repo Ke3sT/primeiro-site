@@ -1,5 +1,5 @@
 <?php
-require 'conexao.php';
+require '../__painel_admin/scripts/conexao.php';
 
 if (estaConectado()) {
     //Verifico se as variaveis foram enviadas ao post

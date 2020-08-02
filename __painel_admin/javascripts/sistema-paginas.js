@@ -73,6 +73,7 @@ function carregarPaginas() {
         listaColunas += "<div id='" + pagina + "' style='display:none'>"
         Object.keys(elementosPagina).forEach(index => {
             let dataLicenca = elementosPagina[index];
+            let ipsPermitidos = JSON.parse(dataLicenca['ipsPermitidos']);
 
             //Crio o "cabecalho" de cada licenca, com as informacoes basicas e os botoes pra controlar
             listaColunas += "<div id='" + dataLicenca['id'] + "' class='chaveDados'>"
@@ -87,8 +88,21 @@ function carregarPaginas() {
             listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
             listaColunas += "<li class='qualquerIp'>Qualquer IP?: <a>" + (dataLicenca['permitirQualquerIp'] == 1 ? "Sim" : "Nao") + "</a></li>";
             listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
-            listaColunas += "</ul>";
 
+
+            listaColunas += "<li title='Lista de IPs permitidos a utilizar esta chave'>IPs permitidos: <select name='ipsLicenca' id='ipsLicenca'>";
+
+            if (ipsPermitidos != null) {
+                ipsPermitidos['ips'].forEach(ip => {
+                    listaColunas += "<option>" + ip + "</option>";
+                });
+            } else {
+                listaColunas += "<option>Nenhum IP atribuido</option>";
+            }
+
+            listaColunas += "</select></li>";
+
+            listaColunas += "</ul>";
             listaColunas += "</div>";
         })
         listaColunas += "</div>";

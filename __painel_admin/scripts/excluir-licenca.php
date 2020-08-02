@@ -1,6 +1,5 @@
 <?php
-
-require '../../__login/conexao.php';
+require 'conexao.php';
 
 if (!isset($_POST['id'])) {
     die("Erro em receber os dados");

@@ -1,5 +1,5 @@
 <?php
-require 'conexao.php';
+require '../__painel_admin/scripts/conexao.php';
 
 if (isset($_POST['usuario']) && isset($_POST['senha'])) {
 

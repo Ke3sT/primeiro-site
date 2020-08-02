@@ -1,5 +1,5 @@
 <?php
-@include '../../__login/conexao.php';
+include 'conexao.php';
 
 if (estaConectado()) {
     $query = "SELECT * from licencas";

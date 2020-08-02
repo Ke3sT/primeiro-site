@@ -1,5 +1,5 @@
 <?php
-@include '../__login/conexao.php';
+include 'scripts/conexao.php';
 
 //Verifico se esta conectado ao banco de dados
 if (estaConectado()) {
@@ -33,6 +33,7 @@ if (estaConectado()) {
             $("#conteudo").fadeIn(1000);
 
             //Funcao pra mostrar/ocultar informacoes de uma chave pelo botao Ver
+
         })
     </script>
 
@@ -80,8 +81,6 @@ if (estaConectado()) {
             document.execCommand('copy');
             document.body.removeChild(licencaChave);
         }
-
-
 
         //Animacao para ocultar a chave
         function animacaoExclusao(elementoChave, sucesso) {

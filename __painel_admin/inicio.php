@@ -1,6 +1,5 @@
 <?php
-@include '../__login/conexao.php';
-
+@include 'scripts/conexao.php';
 ?>
 
 <!DOCTYPE html>
