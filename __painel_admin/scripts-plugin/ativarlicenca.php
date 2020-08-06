@@ -9,7 +9,7 @@ Exemplo de como os dados da requisicao sao:
 "servidorNome": "Nome do servidor",
 "servidorIP": "123.456.789.1",
 "servidorTotalPlugins": 3
-"servidorPlugins": {
+"servidorPlugins": {    
 	"NomeDoPlugin": "1.3.4",
 	"OutroPlugin": "1.2.6"
 	}
@@ -31,7 +31,7 @@ if (!estaConectado()) {
         //Verifico se o json retornado esta em uma sintaxe correta
         if (json_last_error() == 0) {
             //Se a sintaxe estiver correta, entao posso pegar os dados do array do json
-            $dadosRequisicao = $dadosRequisicao['dadosRequisicao'];
+            //$dadosRequisicao = $dadosRequisicao['dadosRequisicao'];
 
             //echo "Servidor fazendo a requisicao: " . $dadosRequisicao['servidorNome'] . "</br>";
 
@@ -57,18 +57,20 @@ if (!estaConectado()) {
                 $maxIpsLicenca = $resultado['maximoIPs'];
                 $ipsNaLicenca = json_decode($resultado['ipsPermitidos'], 1);
                 $chaveLicenca = $resultado['chave'];
+                $permiteQualquerIP = $resultado['permitirQualquerIp'];
 
                 //Verifico o numero de IPs existentes na licenca
-                if (empty($ipsNaLicenca)) {
+
+                if (!isset($ipsNaLicenca['ips']) || empty($ipsNaLicenca['ips'])) {
                     //Se entrar aqui, é pq a licenca ainda nao tem nenhum IP
                     if ($maxIpsLicenca >= 1) {
 
                         //Insiro o Ip atual nessa licenca
                         //$novosIPs = '{"ips": ["' . $servidorIP . '"]}';
-                        $novosIPs['ips'] = $servidorIP;
+                        $novosIP = '{"ips":["' . $servidorIP . '"]}';
 
 
-                        $query = "UPDATE licencas SET ipsPermitidos='" . json_encode($novosIPs) . "' WHERE chave = '$chaveLicenca'";
+                        $query = "UPDATE licencas SET ipsPermitidos='" . $novosIP . "' WHERE chave = '$chaveLicenca'";
                         ////echo ($query) . "</br>";
                         if ($conexaoMySQL->query($query)) {
                             ////echo "Sucesso! Novo IP adicionado a licenca " . $chaveLicenca;
@@ -88,25 +90,33 @@ if (!estaConectado()) {
                         $resposta['statusMensagem'] = "KeesTDev.com: Desculpe, mas nenhum servidor está autorizado a utilizar essa chave.";
                     }
                 } else {
-                    if (in_array($servidorIP, $ipsNaLicenca)) {
-                        //echo "IP permitido!";
-                        //Permito o plugin ligar ou faco outras verificacoes
 
-                        //Verifico se o maximo de ips nao é 0, caso eu queria desativar uma licenca
-                        if ($maxIpsLicenca >= 1) {
-                            //Retorno 0 (Sem erros, ok)
-                            $resposta['statusCodigo'] = 0;
-                            $resposta['statusMensagem'] = "KeesTDev.com: Licenca autorizada. (" . $servidorNome . ")";
-                        } else {
-                            //Retorno 2 (Nenhum IP permitido nessa chave)
-                            $resposta['statusCodigo'] = 2;
-                            $resposta['statusMensagem'] = "KeesTDev.com: Desculpe, mas nenhum servidor está autorizado a utilizar essa chave.";
-                        }
+                    //Verifico se qualquer IP pode utilizar a licenca
+                    if ($permiteQualquerIP == 1) {
+                        $resposta['statusCodigo'] = 0;
+                        $resposta['statusMensagem'] = "KeesTDev.com: Licenca global autorizada. (" . $servidorNome . ")";
                     } else {
-                        //echo "IP nao esta na lista de IPs permitidos";
-                        //Retorno erro 3 (IP do requisitor nao esta permitido na lista de ips desta chave)
-                        $resposta['statusCodigo'] = 3;
-                        $resposta['statusMensagem'] = "KeesTDev.com: Seu IP (" . $servidorIP . ") não está permitido a usar esta licenca.";
+                        //Caso contrario, verifico se o IP na requisicao esta na lista de IPs permitidos da licenca
+                        if (in_array($servidorIP, $ipsNaLicenca['ips'])) {
+                            //echo "IP permitido!";
+                            //Permito o plugin ligar ou faco outras verificacoes
+
+                            //Verifico se o maximo de ips nao é 0, caso eu queria desativar uma licenca
+                            if ($maxIpsLicenca >= 1) {
+                                //Retorno 0 (Sem erros, ok)
+                                $resposta['statusCodigo'] = 0;
+                                $resposta['statusMensagem'] = "KeesTDev.com: Licenca autorizada. (" . $servidorNome . ")";
+                            } else {
+                                //Retorno 2 (Nenhum IP permitido nessa chave)
+                                $resposta['statusCodigo'] = 2;
+                                $resposta['statusMensagem'] = "KeesTDev.com: Desculpe, mas nenhum servidor está autorizado a utilizar essa chave.";
+                            }
+                        } else {
+                            //echo "IP nao esta na lista de IPs permitidos";
+                            //Retorno erro 3 (IP do requisitor nao esta permitido na lista de ips desta chave)
+                            $resposta['statusCodigo'] = 3;
+                            $resposta['statusMensagem'] = "KeesTDev.com: Seu IP (" . $servidorIP . ") não está permitido a usar esta licenca.";
+                        }
                     }
                 }
             } else {
