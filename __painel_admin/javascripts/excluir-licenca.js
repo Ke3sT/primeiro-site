@@ -63,3 +63,56 @@ $(function() {
         })
     });
 });
+
+//Animacao para ocultar a chave
+function animacaoExclusao(elementoChave, sucesso) {
+
+    if (sucesso) {
+        //Animacao de exclusao
+        elementoChave.parent().animate({
+            opacity: 1
+        }, {
+            duration: 1000,
+            start: function() {
+                $(this).removeClass("erro");
+                $(this).addClass("sucesso");
+            },
+            done: function() {
+                $(this).hide(1000);
+            }
+        });
+    } else {
+        elementoChave.parent().animate({
+            opacity: 1
+        }, {
+            duration: 1000,
+            start: function() {
+                $(this).removeClass("sucesso");
+                $(this).addClass("erro");
+            }
+        });
+    }
+}
+
+//Bloqueia o botao excluir
+function bloqueiaBotaoExcluir(bloquear, elemento) {
+
+    var botaoExcluir = $(elemento);
+    if (bloquear) {
+        console.log("Bloqueando botao excluir");
+        botaoExcluir.attr("disabled", true);
+
+        //Animacao pra deixar o botao meio invisivel
+        botaoExcluir.animate({
+            opacity: 0.5
+        }, 500);
+    } else {
+        console.log("Desbloqueando botao excluir");
+        botaoExcluir.removeAttr("disabled");
+
+        //Animacao pra por a opacidade ao normal
+        botaoExcluir.animate({
+            opacity: 1
+        }, 500);
+    }
+}

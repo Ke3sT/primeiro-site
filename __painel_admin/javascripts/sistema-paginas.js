@@ -49,6 +49,7 @@ function carregaOutrasFuncoes() {
     verInfo();
     //Carrego as funcao do botao de excluir
     jQuery.getScript('javascripts/excluir-licenca.js');
+    jQuery.getScript('javascripts/configurar.js');
 }
 
 function mostrarPagina(qualPagina) {
@@ -87,12 +88,10 @@ function carregarPaginas() {
             listaColunas += "<li class='chave' title='Clique para copiar a chave'>Chave da licenca: <a>" + dataLicenca['chave'] + "</a></li>";
             listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
             listaColunas += "<li class='qualquerIp'>Qualquer IP?: <a>" + (dataLicenca['permitirQualquerIp'] == 1 ? "Sim" : "Nao") + "</a></li>";
-            listaColunas += "<li class='maxIps'>Maximo de IPs: <a>" + dataLicenca['maximoIPs'] + "</a></li>";
-
 
             listaColunas += "<li title='Lista de IPs permitidos a utilizar esta chave'>IPs permitidos: <select name='ipsLicenca' id='ipsLicenca'>";
 
-            if (ipsPermitidos != null) {
+            if (ipsPermitidos != null && ipsPermitidos['ips'].length != 0) {
                 ipsPermitidos['ips'].forEach(ip => {
                     listaColunas += "<option>" + ip + "</option>";
                 });
@@ -164,6 +163,44 @@ function carregaCopiarChave() {
     })
 }
 
+function atualizaDadoChave(chaveID) {
+    //Id da licenca pra eu pegar do banco de dados
+    console.log("Atualizando dados da chaveID: " + chaveID);
+
+    solicitacaoAjax = $.ajax({
+        url: 'scripts/retornar-licencas.php',
+        type: 'POST',
+        data: 'licencaID=' + chaveID
+    })
+
+    solicitacaoAjax.done(function(resposta, codResp, xhttp) {
+        licencaDados = JSON.parse(resposta)[0];
+        console.log(licencaDados);
+
+        //Elemento da chave
+        elementoChave = $(".licencasDados div#" + paginasLicenca.getPaginaAtual()).find("div#" + chaveID);
+
+        elementoChave.find("a").text(licencaDados['chave']);
+        elementoChave.find("ul li.chave a").text(licencaDados['chave']);
+        elementoChave.find("ul li.maxIps a").text(licencaDados['maximoIPs']);
+        elementoChave.find("ul li.qualquerIp a").text(licencaDados['permitirQualquerIp'] == 1 ? "Sim" : "Nao");
+
+        let ipsPermitidos = JSON.parse(licencaDados['ipsPermitidos']);
+        let listaIP = "";
+        let caixaIPs = elementoChave.find("ul li select#ipsLicenca");
+        if (ipsPermitidos != null && ipsPermitidos['ips'].length != 0) {
+            ipsPermitidos['ips'].forEach(ip => {
+                listaIP += "<option>" + ip + "</option>";
+            });
+        } else {
+            listaIP += "<option>Nenhum IP atribuido</option>";
+        }
+
+        caixaIPs.empty();
+        caixaIPs.append(listaIP);
+    })
+}
+
 //Funcao pra mostrar infos da licenca
 function verInfo() {
     $(".ver").click(function(evento) {
@@ -204,4 +241,15 @@ function verInfo() {
             });
         }
     });
+}
+
+//Funcao pra copiar a chave ao clicar nela
+function copiaProClipBoard(texto) {
+    const licencaChave = document.createElement('textarea');
+    licencaChave.value = texto;
+    document.body.appendChild(licencaChave);
+    licencaChave.setAttribute('readonly', '');
+    licencaChave.select();
+    document.execCommand('copy');
+    document.body.removeChild(licencaChave);
 }

@@ -1,12 +1,5 @@
 <?php
-include 'scripts/conexao.php';
-
-//Verifico se esta conectado ao banco de dados
-if (estaConectado()) {
-    //Faco a query pra pegar todas as licencas do banco de dados
-    $query = "SELECT * FROM licencas";
-    $resultado = $conexaoMySQL->query($query);
-}
+@include 'scripts/conexao.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +9,7 @@ if (estaConectado()) {
     <title>Painel Administrativo - Lista de Licencas</title>
     <!--Carrego o CSS dessa pagina-->
     <link href="css/listar-licenca.css" rel="stylesheet">
+    <link href="css/configurar.css" rel="stylesheet">
 
     <!--Carrega os framworks padroes como jQuery, bootstrap, etc.. -->
     <?php include 'scripts/frameworks.php' ?>
@@ -31,9 +25,6 @@ if (estaConectado()) {
         $(function() {
             //Mostrar o conteudo
             $("#conteudo").fadeIn(1000);
-
-            //Funcao pra mostrar/ocultar informacoes de uma chave pelo botao Ver
-
         })
     </script>
 
@@ -70,70 +61,48 @@ if (estaConectado()) {
         </div>
     </div>
 
+    <div id="caixaConfigurar" class="configLicenca">
+        <form id="formularioConfig">
+
+            <p>Configurar licenca</p>
+
+            <div id="caixaOpcoes">
+                <input id="chaveid" hidden>
+                <label for="chave">Chave</label>
+                <input id="chave" type="text" maxlength="19">
+
+                <label for="maxips">Maximo de IPs</label>
+                <input id="maxips" type="number" min="1" max="100" value="1">
+
+                <label for="qualquerip">Permitir qualquer IP?</label>
+                <input id="qualquerip" type="checkbox">
+            </div>
+
+            <div class="caixaIPs">
+                <label for="ipspermitidos">IPs permitidos</label>
+                <select id="ipspermitidos">
+                </select>
+
+                <button type="button" class="addIP">Adicionar</button>
+                <button type="button" class="removeIP">Remover</button>
+
+                <div class="caixaAddIP">
+                    <label for="novoIP">Digite um IP</label>
+                    <input id="novoIP" type="text">
+                </div>
+            </div>
+
+            <button type="submit" class="salvarButton">Salvar alteracoes</button>
+            <button type="button" class="fecharButton">Fechar</button>
+
+            <div class="msgStatus">
+                <a></a>
+            </div>
+        </form>
+    </div>
+
     <script>
-        //Funcao pra copiar a chave ao clicar nela
-        function copiaProClipBoard(texto) {
-            const licencaChave = document.createElement('textarea');
-            licencaChave.value = texto;
-            document.body.appendChild(licencaChave);
-            licencaChave.setAttribute('readonly', '');
-            licencaChave.select();
-            document.execCommand('copy');
-            document.body.removeChild(licencaChave);
-        }
 
-        //Animacao para ocultar a chave
-        function animacaoExclusao(elementoChave, sucesso) {
-
-            if (sucesso) {
-                //Animacao de exclusao
-                elementoChave.parent().animate({
-                    opacity: 1
-                }, {
-                    duration: 1000,
-                    start: function() {
-                        $(this).removeClass("erro");
-                        $(this).addClass("sucesso");
-                    },
-                    done: function() {
-                        $(this).hide(1000);
-                    }
-                });
-            } else {
-                elementoChave.parent().animate({
-                    opacity: 1
-                }, {
-                    duration: 1000,
-                    start: function() {
-                        $(this).removeClass("sucesso");
-                        $(this).addClass("erro");
-                    }
-                });
-            }
-        }
-
-        //Bloqueia o botao excluir
-        function bloqueiaBotaoExcluir(bloquear, elemento) {
-
-            var botaoExcluir = $(elemento);
-            if (bloquear) {
-                console.log("Bloqueando botao excluir");
-                botaoExcluir.attr("disabled", true);
-
-                //Animacao pra deixar o botao meio invisivel
-                botaoExcluir.animate({
-                    opacity: 0.5
-                }, 500);
-            } else {
-                console.log("Desbloqueando botao excluir");
-                botaoExcluir.removeAttr("disabled");
-
-                //Animacao pra por a opacidade ao normal
-                botaoExcluir.animate({
-                    opacity: 1
-                }, 500);
-            }
-        }
     </script>
 </body>
 
