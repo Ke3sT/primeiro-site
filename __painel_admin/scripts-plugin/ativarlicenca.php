@@ -83,8 +83,9 @@ if (!estaConectado()) {
                             $resposta['statusMensagem'] = "[ERRO] KeesTDev.com: Sistemas de autorizacao de licencas temporariamente indisponiveis.";
                         }
                     } else {
-
                         //Retorno com codigo de erro 2(Ips permitidos < 0)
+                        $resposta['statusCodigo'] = 2;
+                        $resposta['statusMensagem'] = "KeesTDev.com: Desculpe, mas nenhum servidor está autorizado a utilizar essa chave.";
                     }
                 } else {
                     if (in_array($servidorIP, $ipsNaLicenca)) {

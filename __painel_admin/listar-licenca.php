@@ -34,6 +34,7 @@
     <!--Notificacao-->
     <?php include 'estilos/notificacao.php' ?>
 
+    <!--Div contendo as paginas de licencas -->
     <div id="caixa">
         <?php require 'estilos/menu.php'; ?>
         <div id="conteudo">
@@ -61,6 +62,7 @@
         </div>
     </div>
 
+    <!--Abaixo é o popup de configurar as licencas -->
     <div id="caixaConfigurar" class="configLicenca">
         <form id="formularioConfig">
 
@@ -72,7 +74,7 @@
                 <input id="chave" type="text" maxlength="19">
 
                 <label for="maxips">Maximo de IPs</label>
-                <input id="maxips" type="number" min="1" max="100" value="1">
+                <input id="maxips" type="number" min="0" max="100" value="1">
 
                 <label for="qualquerip">Permitir qualquer IP?</label>
                 <input id="qualquerip" type="checkbox">
